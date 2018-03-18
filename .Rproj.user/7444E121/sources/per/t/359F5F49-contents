@@ -1,0 +1,34 @@
+
+
+library(shiny)
+
+# Define UI for application that draws a histogram
+ui <- fluidPage(
+   titlePanel(
+     h1("Top 10 HCP", align = "center")
+    ),
+   sidebarLayout(
+    
+     sidebarPanel(
+       fluidRow(
+         column(
+           9,
+           fileInput("file", h3("File input"))
+         )
+       )
+     ),
+     mainPanel(
+       h1("HEllo!!")
+     )
+   )
+  
+)
+
+# Define server logic required to draw a histogram
+server <- function(input, output) {
+  
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+
