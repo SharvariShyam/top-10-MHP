@@ -54,25 +54,19 @@ server <- function(input, output) {
     
   })
   
-  #output$contents <- renderTable({
+
+  plot<-reactive({
+    ordered<-inFile[order(as.Date(inFile$Date.Of.Procedure,"%Y-%m-%d")),]
+    aug<-subset(ordered,format.Date(Date.Of.Procedure,"%m")=="08")
+    augcount<-as.data.frame(table(aug$Doctor.Name))
+    aug<-group_by(aug,Doctor.Name)
+    umm<-summed[with(summed,order(-summed$x)),]
+    umm<-top_n(umm,10,x)
+    umm$Category<-factor(umm$Category, levels = rev(levels(umm$Category)))
     
-    # input$file1 will be NULL initially. After the user selects
-    # and uploads a file, head of that data file by default,
-    # or all rows if selected, will be shown.
-    
-   #req(input$file1)
-   
-    #fn<-input$file1
-  #df<-read.csv(fn)
-  #head(df)
-    
-  #})
-  
- # output$value <- renderPrint({
-  #  str(input$file)
-  #})
-  
+  })
 }
+
 
 # Run the application 
 shinyApp(ui = ui, server = server)
